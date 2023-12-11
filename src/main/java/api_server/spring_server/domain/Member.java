@@ -19,8 +19,6 @@ public class Member extends BaseEntity {
 
     private String nickname;
 
-    private String password;
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Book> bookList;
 }
