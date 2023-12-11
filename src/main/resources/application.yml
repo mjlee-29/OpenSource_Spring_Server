@@ -1,0 +1,65 @@
+# default profile
+spring:
+  application:
+    name: briefing-dev
+  profiles:
+    active: dev
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha            # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
+    operations-sorter: alpha      # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
+  cache:
+    disabled: true
+  use-fqn: true
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    username: ${aws.db.username}
+    password: ${aws.db.password}
+    url: ${aws.db.url}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: create
+        default_batch_fetch_size: 1000
+
+
+---
+spring:
+  application:
+    name: dev
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    username: ${aws.db.username}
+    password: ${aws.db.password}
+    url: ${aws.db.url}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        #        show_sql: true
+        #        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+        default_batch_fetch_size: 1000
+
+
