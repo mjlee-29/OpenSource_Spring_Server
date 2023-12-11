@@ -7,10 +7,7 @@ import api_server.spring_server.web.dto.responseDto.MemberResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +19,10 @@ public class MemberRestController {
     @PostMapping("/")
     public ResponseEntity<MemberResponseDTO.JoinResponseDTO> postMember(@RequestBody MemberRequestDTO.JoinDTO request){
         return new ResponseEntity<>(MemberConverter.toJoinResponseDTO(memberService.createMember(request)), HttpStatus.OK);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<MemberResponseDTO.MemberListDTO> getMemberList(){
+        return new ResponseEntity<>(MemberConverter.toMemberListDTO(memberService.getMemberList()),HttpStatus.OK);
     }
 }
