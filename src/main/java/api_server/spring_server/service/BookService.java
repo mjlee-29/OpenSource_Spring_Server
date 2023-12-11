@@ -6,9 +6,12 @@ import api_server.spring_server.domain.Member;
 import api_server.spring_server.repository.BookRepository;
 import api_server.spring_server.repository.MemberRepository;
 import api_server.spring_server.web.dto.requestDto.BookRequestDTO;
+import api_server.spring_server.web.dto.responseDto.BookResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +28,9 @@ public class BookService {
         Book book = BookConverter.toBook(request);
         book.setMember(member);
         return bookRepository.save(book);
+    }
+
+    public List<Book> getBookList(){
+        return bookRepository.findAll();
     }
 }

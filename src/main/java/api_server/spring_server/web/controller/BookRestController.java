@@ -7,10 +7,7 @@ import api_server.spring_server.web.dto.responseDto.BookResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +19,10 @@ public class BookRestController {
     @PostMapping("/")
     public ResponseEntity<BookResponseDTO.CreateBookDTO> postBook(@RequestBody BookRequestDTO.CreateBookDTO request){
         return new ResponseEntity<>(BookConverter.toCreateBookDTO(bookService.createBook(request)), HttpStatus.OK);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<BookResponseDTO.BookListDTO> getBookList(){
+        return new ResponseEntity<>(BookConverter.toBookListDTO(bookService.getBookList()),HttpStatus.OK);
     }
 }
