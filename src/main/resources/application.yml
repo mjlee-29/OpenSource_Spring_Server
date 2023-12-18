@@ -1,9 +1,9 @@
 # default profile
 spring:
   application:
-    name: briefing-dev
+    name: spring-server
   profiles:
-    active: dev
+    active: first
 springdoc:
   swagger-ui:
     tags-sorter: alpha            # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
@@ -39,10 +39,10 @@ spring:
 ---
 spring:
   application:
-    name: dev
+    name: first
   config:
     activate:
-      on-profile: dev
+      on-profile: first
   datasource:
     username: ${aws.db.username}
     password: ${aws.db.password}
@@ -61,5 +61,47 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
+eureka:
+  instance:
+    # 표기되는 규칙 변경
+    instance-id: first_server
+    hostname: first.profithub.store
+    ip-address: first.newsbreifing.store
+  client:
+    service-url:
+      defaultZone: http://gateway.profithub.store:8761/eureka
 
-
+---
+spring:
+  application:
+    name: second
+  config:
+    activate:
+      on-profile: second
+  datasource:
+    username: ${aws.db.username}
+    password: ${aws.db.password}
+    url: ${aws.db.url}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        #        show_sql: true
+        #        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+        default_batch_fetch_size: 1000
+eureka:
+  instance:
+    # 표기되는 규칙 변경
+    instance-id: second_server
+    hostname: second.profithub.store
+    ip-address: second.newsbreifing.store
+  client:
+    service-url:
+      defaultZone: http://gateway.profithub.store:8761/eureka
